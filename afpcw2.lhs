@@ -34,8 +34,8 @@ Virtual Machine stuffzzz
 --> comp (While expr prog) =
 --> comp (Seqn progs) = 
 
-> eval :: Expr -> Inst
-> eval (Val n) = PUSH n
-> eval (Var n) = PUSHV n
-> eval (App op x1 x2) = DO op
+> exprCode :: Expr -> [Inst]
+> exprCode (Val n) = [PUSH n]
+> exprCode (Var n) = [PUSHV n]
+> exprCode (App op x1 x2) = exprCode x1 ++ (exprCode x2 ++ [DO op])
 
